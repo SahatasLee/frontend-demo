@@ -39,6 +39,13 @@ const Testapi = () => {
         })
     }
 
+    function onUpdate(id, isFinished){
+        // console.log(id, isFinished);
+        let locate = "http://localhost:1000/api/task?_id=" + id
+        console.log(locate)
+        // axios.put()
+    }
+
     return <div>
             <div>
                 <h1>Todo</h1>
@@ -47,6 +54,7 @@ const Testapi = () => {
                         <span>{task.taskName} </span>
                         <span>{task.isFinish} </span>
                         <span>{task.time} </span>
+                        <button onClick={() => onUpdate(task._id, true)}>Enter</button>
                     </li>)}
                 </ul>
             </div>
