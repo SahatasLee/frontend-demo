@@ -42,8 +42,24 @@ const Testapi = () => {
     function onUpdate(id, isFinished){
         // console.log(id, isFinished);
         let locate = "http://localhost:1000/api/task?_id=" + id
-        console.log(locate)
-        // axios.put()
+        // console.log(locate)
+        axios.put(locate, {isFinished: isFinished})
+        .then(() => {
+            fetchDoneTask();
+            fetchTodoTask();
+        })
+    }
+
+    async function onDelete(id){
+        // console.log(id)
+        let id_locate = "http://localhost:1000/api/task/" + id;
+        // console.log(locate)
+        await axios.delete(id_locate).then(() =>
+        {
+            fetchTodoTask();
+            fetchDoneTask();
+        }
+        )
     }
 
     return <div>
@@ -54,7 +70,8 @@ const Testapi = () => {
                         <span>{task.taskName} </span>
                         <span>{task.isFinish} </span>
                         <span>{task.time} </span>
-                        <button onClick={() => onUpdate(task._id, true)}>Enter</button>
+                        <button onClick={() => onUpdate(task._id, true)}>Done</button>
+                        <button onClick={() => onDelete(task._id)}>❌</button>
                     </li>)}
                 </ul>
             </div>
@@ -65,6 +82,8 @@ const Testapi = () => {
                         <span>{dtask.taskName} </span>
                         <span>{dtask.isFinish} </span>
                         <span>{dtask.time} </span>
+                        <button onClick={() => onUpdate(dtask._id, false)}>not done</button>
+                        <button onClick={() => onDelete(dtask._id)}>❌</button>
                     </li>)}
                 </ul>
             </div>
